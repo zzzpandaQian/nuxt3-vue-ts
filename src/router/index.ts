@@ -13,6 +13,10 @@ const routes = [
         path: '/mine',
         component: mine,
         name: 'mine'
+    },
+    {
+      path: '/dbtest',
+      component: ()=>import('../views/dbtest/index.vue')
     }
 ]
 

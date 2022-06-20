@@ -34,6 +34,7 @@ const value1 = ref('')
       placeholder="Pick a day"
     />
     <router-link to="/home">{{t('message.首页')}}</router-link>
+    <router-link to="/dbtest">dbtest</router-link>
     <router-view></router-view>
   </el-config-provider>
 </template>
