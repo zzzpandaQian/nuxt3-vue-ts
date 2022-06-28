@@ -15,12 +15,13 @@ import {
 } from 'unocss'
 
 const pathSrc = path.resolve(__dirname, 'src')
-
+const path_ = path.resolve(__dirname)
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
     alias: {
       '~/': `${pathSrc}/`,
+      '@': path.join(path_, '/src')
     },
   },
   css: {

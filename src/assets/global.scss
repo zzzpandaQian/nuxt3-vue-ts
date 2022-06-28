@@ -1,1 +1,41 @@
-$red: red;
+.d-flex{
+  display: flex;
+}
+.d-flex-row{
+  display: flex;
+  flex-direction: row;
+}
+$align-type: (
+  'start': 'flex-start',
+  'end': 'flex-end',
+  'between': 'space-between',
+  'around': 'space-around',
+);
+@each $k,$v in $align-type{
+  .row-#{$k}{
+    justify-content: #{$v};
+  }
+  .col-#{$k}{
+    align-items: #{$v};
+  }
+}
+
+$positionDict:(
+  'l': 'left',
+  'r': 'right',
+  't': 'top',
+  'b': 'bottom'
+);
+$mAndp: (
+  '.m': 'margin',
+  '.p': 'padding'
+);
+@each $k,$v in $mAndp{
+  @each $k1,$v1 in $positionDict{
+    @for $num from 1 through 5{
+      #{$k}-#{$k1}-#{$num}{
+        #{$v}-#{$v1}: calc(#{$num} * 0.125rem)!important;
+      }
+    }
+  }
+}
