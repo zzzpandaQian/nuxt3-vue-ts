@@ -23,7 +23,6 @@ class HttpRequest{
         }
         this.instance.interceptors.request.use(
             (config: RequestConfig)=>{
-                console.log('全局request拦截');
                 return config
             },
             (error)=>{
@@ -35,10 +34,13 @@ class HttpRequest{
             // 这一步判断个体的config中是否自定义了拦截器
             // 若存在拦截器优先执行个体拦截器
             this.loading?.close()
+            if(response.data.data.token){
+              localStorage.setItem('token', 'Bearer ' + response.data.data.token)
+            }
+
             if (config?.interceptor?.responseInterceptor) {
             response = config.interceptor.responseInterceptor(response)
             }
-            console.log('实例response拦截')
             return response
         },
         (err) => {
@@ -47,6 +49,6 @@ class HttpRequest{
         )
         return this.instance.request(config)
     }
-}   
+}
 
 export default HttpRequest
