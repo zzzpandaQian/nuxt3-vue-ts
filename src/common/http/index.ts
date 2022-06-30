@@ -34,10 +34,11 @@ class HttpRequest{
             // 这一步判断个体的config中是否自定义了拦截器
             // 若存在拦截器优先执行个体拦截器
             this.loading?.close()
-            if(response.data.data.token){
-              localStorage.setItem('token', 'Bearer ' + response.data.data.token)
+            if(response.data.code == 200){
+              if(response.data.data.token){
+                localStorage.setItem('token', 'Bearer ' + response.data.data.token)
+              }
             }
-
             if (config?.interceptor?.responseInterceptor) {
             response = config.interceptor.responseInterceptor(response)
             }

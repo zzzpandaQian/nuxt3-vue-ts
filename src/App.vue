@@ -19,18 +19,18 @@ const languageDict:languageinterface = {
 }
 const changeLanguage_ = (language:string):void=>{
   console.log(language);
-
+  localStorage.setItem('language', language)
   Ellocale.value = languageDict[language]
   locale.value = language
 }
 
 const value1 = ref('')
 
-api.fakeLogin().then((res: any)=>{
-  localStorage.setItem('token', 'Bearer ' + res.data.data.token)
-  localStorage.setItem('language', res.data.data.user.language || 'zh')
-  changeLanguage_(localStorage.getItem('language') || 'zh')
-})
+// api.fakeLogin().then((res: any)=>{
+//   localStorage.setItem('token', 'Bearer ' + res.data.data.token)
+//   localStorage.setItem('language', res.data.data.user.language || 'zh')
+//   changeLanguage_(localStorage.getItem('language') || 'zh')
+// })
 </script>
 
 <template>

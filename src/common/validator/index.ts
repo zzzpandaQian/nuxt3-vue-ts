@@ -18,7 +18,7 @@ export const RULES = {
       return callback()
     }
   },
-  pwd: (rule:any, value:string, callback: any)=>{
+  password: (rule:any, value:string, callback: any)=>{
     if( value.length > 18){
       return callback(new Error('密码不可超过18字符'))
     }
