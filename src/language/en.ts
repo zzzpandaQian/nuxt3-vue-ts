@@ -6,5 +6,7 @@ export const en = {
         中文: 'Chinese',
         英语: 'English',
         登录: 'login',
+        修改信息: 'edit',
+        退出: 'logout',
     }
 }

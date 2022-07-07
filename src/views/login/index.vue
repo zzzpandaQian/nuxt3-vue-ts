@@ -89,17 +89,23 @@
 <script lang="ts" setup>
 import { ElTabs, ElTabPane, ElMessage, TabPanelName } from "element-plus";
 import { reactive, ref, watch } from "vue";
-import { RULES } from "@/common/validator/index.ts";
-import { api } from "@/common/http/api";
+import { RULES } from "~/common/validator/index.ts";
+import { api } from "~/common/http/api";
+import { useRouter } from "vue-router";
+import createStore from '~/store';
 
 // import { ElMessage } from 'element-plus/lib/components'
-const form = reactive({
+interface FORM{
+  [propName: string]:any
+}
+const store = createStore()
+const form = reactive<FORM>({
   name: "",
   password: "",
   gender: "0",
   repassword: "",
 });
-
+const router = useRouter()
 const rules = reactive({
   name: [
     { required: true, message: "请输入用户名", trigger: "blur" },
@@ -149,6 +155,7 @@ const rules = reactive({
 });
 const labelPosition = ref("left"),
   currentTab = ref(0);
+
 watch(currentTab, (n) => {
   Object.keys(form).map((i: string) => {
     form[i] = "";
@@ -157,11 +164,15 @@ watch(currentTab, (n) => {
 const tabChange = (name: TabPanelName):any => {
   currentTab.value = +name;
 };
+// 登录
 const login = () => {
   api.login({ data: form, method: "POST" }).then((res: any) => {
     if (res.data.code == 200) {
       ElMessage.success(res.data.message);
       localStorage.setItem("userInfo", JSON.stringify(res.data.data.user));
+      store.$state.userInfo = res.data.data.user
+      store.$state.isLogin = true
+      router.replace({path: '/home'})
     } else {
       ElMessage.error(res.data.message);
     }
